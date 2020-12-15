@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+/* Fonts ----------------------- */
+@font-face {
+  font-family: PracticeBlack;
+  src: url(/fonts/custom/PracticeBlack.otf) format('opentype');
+}
+@font-face {
+  font-family: PracticeBlack;
+  font-style: italic;
+  src: url(/fonts/custom/PracticeBlackIta.otf) format('opentype');
+}
+@font-face {
+  font-family: PracticeRegular;
+  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
+}
+@font-face {
+  font-family: PracticeRegularIta;
+  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
+}
+header#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 5px 0 rgba(52, 73, 94, 0.5);
+}
+header#header .header-inner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 2rem;
+}
+header#header .header-inner ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+header#header .header-inner ul li {
+  list-style-type: none;
+}
+header#header .header-inner ul a.header-link {
+  padding: 37px 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #222;
+  display: block;
+  z-index: 9000;
+  position: relative;
+}
+header#header .header-inner ul a.header-link.router-link-exact-active {
+  border-bottom: 2px solid #fc4f59;
+  padding-bottom: 35px;
+  font-weight: 700;
+}
+header#header .header-inner a.left-logo {
+  margin-right: 1rem;
+}
+header#header .header-inner a.right-logo {
+  margin-left: auto;
+}
+header#header img {
+  opacity: 1;
+  transition: 0.2s;
+  padding: 1rem 0;
+}
+header#header img:hover {
+  opacity: 0.8;
+  transition: 0.2s;
+}

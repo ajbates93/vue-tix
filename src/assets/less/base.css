@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+/* Fonts ----------------------- */
+@font-face {
+  font-family: PracticeBlack;
+  src: url(/fonts/custom/PracticeBlack.otf) format('opentype');
+}
+@font-face {
+  font-family: PracticeBlack;
+  font-style: italic;
+  src: url(/fonts/custom/PracticeBlackIta.otf) format('opentype');
+}
+@font-face {
+  font-family: PracticeRegular;
+  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
+}
+@font-face {
+  font-family: PracticeRegularIta;
+  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
+}
+body {
+  margin: 0;
+  color: #34495E;
+  background-color: #edf2f7;
+}
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+main {
+  min-height: 70vh;
+  margin-top: 94px;
+  padding: 2rem;
+}
+* {
+  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+  transition: 0.15s;
+}
+*:focus {
+  outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0 0 0.5rem;
+}
+h1 {
+  font-size: 3rem;
+}
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size: 2.25rem;
+}
+h4 {
+  font-size: 2rem;
+}
+h5 {
+  font-size: 1.5rem;
+}
+p {
+  line-height: 1.5;
+}
+a {
+  font-family: 'Open Sans', sans-serif;
+  text-decoration: none;
+  color: #a58c5c;
+  margin: 0;
+  cursor: pointer;
+}
+a:hover {
+  color: #ae986c;
+}
+.box {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border: 1px solid #e6ecf0;
+  margin-bottom: 1rem;
+}
+.box:last-child {
+  margin-bottom: 0;
+}
+.box.box-full {
+  width: 100%;
+}
+.box.button-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.box.button-box .button-box-left {
+  flex: 0 1 calc(100% - 250px);
+}
+.box.button-box .button-box-right {
+  flex: 0 1 auto;
+}
+.box h1,
+.box h2,
+.box h3,
+.box h4,
+.box h5 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: PracticeRegular, serif;
+}
+.box h1 {
+  margin-bottom: 1rem;
+}
+.box p {
+  font-size: 1.125rem;
+  line-height: 140%;
+  margin: 1rem 0;
+}
+.box.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.number-pickers {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+div.number-pickers span {
+  margin-right: 1rem;
+}
+div.number-pickers span label {
+  font-size: 1.125rem;
+  margin-right: 0.5rem;
+}
+div.button {
+  background-color: #fc4f59;
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: 0.3s border-radius;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+div.button.button-success {
+  background-color: #28a745;
+}
+div.button:hover {
+  border-radius: 10px;
+  transition: 0.3s border-radius;
+  cursor: pointer;
+}
+#confirm ul li {
+  margin-bottom: 0.5rem;
+}
+#confirm .vdp-datepicker {
+  margin-top: 2rem;
+}
+#confirm .vdp-datepicker input[type=text] {
+  border: 2px solid #fc4f59;
+  border-radius: 0.25rem;
+  font-family: PracticeRegular, serif;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+}
+.fade-enter-active {
+  transition: opacity 0.5s;
+}
+.fade-leave-active {
+  transition: opacity 0s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
