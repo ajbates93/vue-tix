@@ -135,7 +135,7 @@ div.number-pickers span label {
   font-size: 1.125rem;
   margin-right: 0.5rem;
 }
-div.button {
+.button {
   background-color: #fc4f59;
   color: #fff;
   font-size: 1.25rem;
@@ -145,13 +145,34 @@ div.button {
   margin-top: 0.5rem;
   display: inline-block;
 }
-div.button.button-success {
+.button.button-success {
   background-color: #28a745;
 }
-div.button:hover {
-  border-radius: 10px;
-  transition: 0.3s border-radius;
+.button.button-success:hover {
+  background-color: #2dbc4d;
+  color: #fff;
+}
+.button.button-gold {
+  background-color: #a58c5c;
+  margin-top: 1rem;
+}
+.button.button-gold:hover {
+  background-color: #ae986c;
+}
+.button.button-silver {
+  background-color: #89898c;
+  margin-top: 1rem;
+}
+.button.button-silver:hover {
+  background-color: #969699;
+}
+.button.button-ryedale {
+  margin-top: 1rem;
+}
+.button:hover {
+  background-color: #fc6871;
   cursor: pointer;
+  color: #fff;
 }
 #confirm ul li {
   margin-bottom: 0.5rem;
@@ -165,6 +186,10 @@ div.button:hover {
   font-family: PracticeRegular, serif;
   font-size: 1.25rem;
   padding: 0.5rem 1rem;
+}
+ul.membership-benefits li {
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
 }
 .fade-enter-active {
   transition: opacity 0.5s;

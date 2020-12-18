@@ -2,6 +2,67 @@
     <div id="confirm">
         <section class="box box-full">
             <h1>Gold Membership</h1>
+            <p>Family Membership Options:</p>
+            <form @submit.prevent>
+                <div class="form-row">
+                    <select>
+                        <option>Gold Dual Adult (2 Adults)</option>
+                        <option>Gold Friend Family (1 Adult + 3 Children)</option>
+                        <option>Gold Friend Family (2 Adult + 3 Children)</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <p>Additional Memberships:</p>
+                </div>
+                <span>
+                <label for="adultsNo">Adults</label>
+                <select v-model="usersForm.adultsNo">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                </span>
+                <span>
+                <label for="adultsGuestsNo">Adult Guests</label>
+                <select v-model="usersForm.adultsGuestNo">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                </span>
+                <span>
+                <label for="childNo">Child (4+)</label>
+                <select v-model="usersForm.childNo">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                </span>
+                <span>
+                <label for="childGuestNo">Child Guests (4+)</label>
+                <select v-model="usersForm.childGuestNo">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                </span>
+            </form>
+            
+        </section>
+        <section class="box box-full">
+            <h1>Your selection</h1>
             <p>You have selected:</p>
             <ul>
                 <li>Adults: {{usersForm.adultsNo}}</li>
@@ -9,10 +70,6 @@
                 <li>Child: {{usersForm.childNo}}</li>
                 <li>Child Guests: {{usersForm.childGuestNo}}</li>
             </ul>
-        </section>
-        <section class="box box-full">
-            <h1>What date would suit you?</h1>
-            <DatePicker v-model="usersDate" :disabled-dates="this.$store.state.disabledDates"></DatePicker>
         </section>
         <div class="box box-full button-container">
             <div class="button" @click="goBack()">Go Back</div>
@@ -22,30 +79,32 @@
 </template>
 
 <script>
-import DatePicker from "vuejs-datepicker"
 import router from "../router"
 
 export default {
     data() {
         return {
             usersForm: {
-                adultsNo: this.$store.state.usersForm.adultsNo,
-                adultsGuestNo: this.$store.state.usersForm.adultsGuestNo,
-                childNo: this.$store.state.usersForm.childNo,
-                childGuestNo: this.$store.state.usersForm.childGuestNo
+                adultsNo: 0,
+                adultsGuestNo: 0,
+                childNo: 0,
+                childGuestNo: 0
             },
-            usersDate: new Date()
         }
     },
     components: {
-        DatePicker
     },
     methods: {
-        getDate() {
-            return new Date();
-        },
         goBack() {
             router.go(-1)
+        },
+        confirm() {
+            this.$store.dispatch("confirm", {
+                adultsNo: this.usersForm.adultsNo,
+                adultsGuestNo: this.usersForm.adultsGuestNo,
+                childNo: this.usersForm.childNo,
+                childGuestNo: this.usersForm.childGuestNo
+            })
         }
     }    
 }

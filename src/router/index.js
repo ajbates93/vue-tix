@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
-import Confirm from '../views/Confirm.vue'
-import Information from '../views/Information.vue'
+import Dashboard from "../views/Dashboard.vue";
 
 Vue.use(VueRouter)
 
@@ -15,12 +13,20 @@ const routes = [
   {
     path: '/confirm',
     name: "Confirm",
-    component: Confirm
+    // route level code-splitting
+    // this generates a separate chunk (confirm.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/Confirm.vue')
   },
   {
     path: '/information',
     name: "Information",
-    component: Information
+    component: () => import('../views/Information.vue')
+  },
+  {
+    path: '/gold',
+    name: "Gold",
+    component: () => import('../views/Gold.vue')
   },
 ]
 

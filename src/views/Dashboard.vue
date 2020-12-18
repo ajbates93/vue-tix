@@ -4,193 +4,63 @@
       <h1>Purchase Membership</h1>
       <p>Choose the tier of our membership scheme which most suits you; from enjoying great days out with your family to joining us at our Summer Garden Party and taking part in our programme of Friends tours and talks. </p>
     </section>
+    
     <section class="box button-box box-full">
       <div class="button-box-left">
-        <h3>Gold Friend Membership</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor, risus vitae dapibus blandit, velit est maximus urna, nec maximus nibh nisi eget eros. Proin euismod urna at fringilla pulvinar. Etiam eros nulla, volutpat nec eros et, ornare posuere est. Etiam vel sollicitudin justo, at porta augue.</p>
-        <div class="number-pickers">
-          <form @submit.prevent>
-            <i class="fas fa-user"></i>
-            <span>
-              <label for="adultsNo">Adults</label>
-              <select v-model="usersForm.adultsNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="adultsGuestsNo">Adult Guests</label>
-              <select v-model="usersForm.adultsGuestNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="childNo">Child (4+)</label>
-              <select v-model="usersForm.childNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="childGuestNo">Child Guests (4+)</label>
-              <select v-model="usersForm.childGuestNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-          </form>
-          <!-- <p>AdultsNo: {{usersForm.adultsNo}}</p>
-          <p>AdultsGuestNo: {{usersForm.adultsGuestNo}}</p>
-          <p>ChildNo: {{usersForm.childNo}}</p>
-          <p>ChildGuestNo: {{usersForm.childGuestNo}}</p> -->
-        </div>
+        <h3>Silver Friend Membership</h3>
+        <a @click="toggleSilverBenefits()" class="button button-silver"><span v-if="!this.showSilverBenefits">Show</span><span v-else>Hide</span> Benefits</a>
+        <transition name="fade">
+          <div v-if="this.showSilverBenefits">
+            <ul class="membership-benefits">
+              <li>Free access to the house, parkland, gardens and adventure playground </li>
+              <li>Free access to daytime events included in standard admission</li>
+              <li>Loyalty scheme - equivalent to percentage of purchases in the cafés and shops (5% for silver Friends)</li>
+              <li>Invitations to Friends previews</li>
+              <li>Invitation to the Friends Summer Garden Party hosted by the Hon. Nicholas and Mrs Howard</li>
+              <li>Fast track access on Bank Holidays and selected event days</li>
+              <li>A programme of exclusive Friends events, including tours and lectures</li>
+              <li>Exclusive Friends promotions and special offers</li>
+              <li>Friends newsletter and email updates</li>
+            </ul>
+          </div>
+        </transition>
       </div>
       <div class="button-box-right">
-        <!-- <div class="button"><a @click="confirm()">Confirm Selection</a></div> -->
-        <div @click="confirm()" class="button">Confirm Selection</div>
+        <router-link to="/confirm" class="button">View Pricing ></router-link>
       </div>
     </section>
     <section class="box button-box box-full">
       <div class="button-box-left">
-        <h3>Silver Friend Membership</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor, risus vitae dapibus blandit, velit est maximus urna, nec maximus nibh nisi eget eros. Proin euismod urna at fringilla pulvinar. Etiam eros nulla, volutpat nec eros et, ornare posuere est. Etiam vel sollicitudin justo, at porta augue.</p>
-        <div class="number-pickers">
-          <form @submit.prevent>
-            <i class="fas fa-user"></i>
-            <span>
-              <label for="adultsNo">Adults</label>
-              <select v-model="usersForm.adultsNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="adultsGuestsNo">Adult Guests</label>
-              <select v-model="usersForm.adultsGuestNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="childNo">Child (4+)</label>
-              <select v-model="usersForm.childNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="childGuestNo">Child Guests (4+)</label>
-              <select v-model="usersForm.childGuestNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-          </form>
-          <!-- <p>AdultsNo: {{usersForm.adultsNo}}</p>
-          <p>AdultsGuestNo: {{usersForm.adultsGuestNo}}</p>
-          <p>ChildNo: {{usersForm.childNo}}</p>
-          <p>ChildGuestNo: {{usersForm.childGuestNo}}</p> -->
-        </div>
+        <h3>Gold Friend Membership</h3>
+        <a @click="toggleGoldBenefits()" class="button button-gold"><span v-if="!this.showGoldBenefits">Show</span><span v-else>Hide</span> Benefits</a>
+        <transition name="fade">
+          <div v-if="this.showGoldBenefits">
+            <p>With our Gold Friend Membership, you get access to the full set of benefits that the Silver Membership offers, as well as: </p>
+            <ul class="membership-benefits">
+              <li>Priority booking for selected events</li>
+              <li>Two free visits to the Yorkshire Arboretum on selected dates</li>
+              <li>Two free boat trips on the Great Lake</li>
+              <li>Discount on selected ticketed events organised by third parties</li>
+              <li>Loyalty scheme - equivalent to percentage of purchases in the&nbsp;cafés and shops (10% for Gold Friends)</li>
+              <li>Free ticket to the Friends Summer Garden Party hosted by the Hon. Nicholas and Mrs Howard</li>
+            </ul>
+          </div>
+        </transition>
       </div>
       <div class="button-box-right">
-        <!-- <div class="button"><a @click="confirm()">Confirm Selection</a></div> -->
-        <div @click="confirm()" class="button">Confirm Selection</div>
+        <router-link to="/gold" class="button">View Pricing ></router-link>
       </div>
     </section>
     <section class="box button-box box-full">
       <div class="button-box-left">
         <h3>Ryedale Resident Membership</h3>
-        <p>There is a special Friends offer for our closest neighbours, Ryedale District Residents. Enjoy three free children's passes for every named adult membership purchased.</p>
-        <div class="number-pickers">
-          <form @submit.prevent>
-            <i class="fas fa-user"></i>
-            <span>
-              <label for="adultsNo">Adults</label>
-              <select v-model="usersForm.adultsNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="adultsGuestsNo">Adult Guests</label>
-              <select v-model="usersForm.adultsGuestNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="childNo">Child (4+)</label>
-              <select v-model="usersForm.childNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-            <span>
-              <label for="childGuestNo">Child Guests (4+)</label>
-              <select v-model="usersForm.childGuestNo">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </span>
-          </form>
-          <!-- <p>AdultsNo: {{usersForm.adultsNo}}</p>
-          <p>AdultsGuestNo: {{usersForm.adultsGuestNo}}</p>
-          <p>ChildNo: {{usersForm.childNo}}</p>
-          <p>ChildGuestNo: {{usersForm.childGuestNo}}</p> -->
-        </div>
+        <a @click="toggleRyedaleBenefits()" class="button button-ryedale"><span v-if="!this.showRyedaleBenefits">Show</span><span v-else>Hide</span> Benefits</a>
+        <transition name="fade">
+          <p v-if="this.showRyedaleBenefits">There is a special Friends offer for our closest neighbours, Ryedale District Residents. Enjoy three free children's passes for every named adult membership purchased.</p>
+        </transition>
       </div>
       <div class="button-box-right">
-        <!-- <div class="button"><a @click="confirm()">Confirm Selection</a></div> -->
-        <div @click="confirm()" class="button">Confirm Selection</div>
+        <router-link to="/gold" class="button">View Pricing ></router-link>
       </div>
     </section>
   </div>
@@ -199,26 +69,23 @@
 <script>
 
 export default {
-  data() {
+  data() { 
     return {
-      usersForm: {
-        adultsNo: 0,
-        adultsGuestNo: 0,
-        childNo: 0,
-        childGuestNo: 0
-      }
+      showSilverBenefits: false,
+      showGoldBenefits: false,
+      showRyedaleBenefits: false,
     }
   },
   methods: {
-    confirm() {
-      this.$store.dispatch("confirm", {
-        adultsNo: this.usersForm.adultsNo,
-        adultsGuestNo: this.usersForm.adultsGuestNo,
-        childNo: this.usersForm.childNo,
-        childGuestNo: this.usersForm.childGuestNo
-      })
+    toggleSilverBenefits() {
+      this.showSilverBenefits = !this.showSilverBenefits
+    },
+    toggleGoldBenefits() {
+      this.showGoldBenefits = !this.showGoldBenefits
+    },
+    toggleRyedaleBenefits() {
+      this.showRyedaleBenefits = !this.showRyedaleBenefits
     }
   }
-  
 }
 </script>
