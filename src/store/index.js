@@ -9,12 +9,16 @@ const store = new Vuex.Store({
     usersForm: {},
     disabledDates: {
       to: new Date()
-    }
+    },
+    drawer: false,
   },
   mutations: {
     setUsersForm(state, val) {
       state.usersForm = val
-    }
+    },
+    setDrawer(state, val) {
+      state.drawer = val
+    },
   },
   actions: {
     async confirm({commit}, usersForm) {
@@ -23,6 +27,9 @@ const store = new Vuex.Store({
       if (usersForm) {
         router.push("/confirm")
       }
+    },
+    async toggleDrawer({commit}, show) {
+      commit("setDrawer", show)
     }
   },
   modules: {

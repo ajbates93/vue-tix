@@ -1,4 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+.chRed {
+  color: #fc4f59 !important;
+}
+.chGold {
+  color: #a58c5c !important;
+}
+.chSilver {
+  color: #89898c !important;
+}
+.bg-chRed {
+  background-color: #fc4f59 !important;
+}
+.bg-chGold {
+  background-color: #a58c5c !important;
+}
+.bg-chSilver {
+  background-color: #89898c !important;
+}
 /* Fonts ----------------------- */
 @font-face {
   font-family: PracticeBlack;
