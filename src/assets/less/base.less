@@ -7,186 +7,81 @@ body {
 	background-color: rgb(237, 242, 247);
 }
 
-html {
-	line-height: 1.15;
-	-webkit-text-size-adjust: 100%;
-}
-
 main {
-    min-height: 70vh;
-    margin-top: 94px;
-    padding: 2rem;
+    background-color: rgb(237, 242, 247);
 }
 
-* {
-	font-family: 'Open Sans', sans-serif;
-	box-sizing: border-box;
-	transition: 0.15s;
+h1, h2, h3, h4, h5 {
+    font-family: PracticeRegular, serif;
 
-	&:focus {
-		outline: none;
-	}
-}
-
-// fonts
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
-	margin: 0 0 0.5rem;
+    &.default-font {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+    }
 }
 
 h1 {
-	font-size: 3rem;
+    font-size: 3rem;
 }
-
 h2 {
-	font-size: 2.5rem;
+    font-size: 2.5rem;
 }
-
 h3 {
-	font-size: 2.25rem;
+    font-size: 2.25rem;
 }
-
 h4 {
-	font-size: 2rem;
+    font-size: 2rem;
 }
-
 h5 {
-	font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
-p {
-	line-height: 1.5;
-}
 
-a {
-	font-family: 'Open Sans', sans-serif;
-	text-decoration: none;
-	color: @chGold;
-	margin: 0;
-	cursor: pointer;
 
-	&:hover {
-		color: lighten(@chGold, 5%);
-	}
-}
+// .button {
+//     background-color: @chRed;
+//     color: #fff;
+//     font-size: 1.25rem;
+//     padding: 0.5rem 1rem;
+//     text-decoration: none;
+//     transition: 0.3s border-radius;
+//     margin-top: 0.5rem;
+//     display: inline-block;
 
-.box {
-    background-color: #fff;
-    border-radius: 0.75rem;
-    padding: 2rem;
-    box-sizing: border-box;
-    margin: 0 auto;
-    border: 1px solid #e6ecf0;
-    margin-bottom: 1rem;
+//     &.button-success {
+//         background-color: @success;
 
-    &:last-child {
-        margin-bottom: 0;
-    }
+//         &:hover {
+//             background-color: lighten(@success, 5%);
+//             color: #fff;
+//         }
+//     }
+//     &.button-gold {
+//         background-color: @chGold;
+//         margin-top: 1rem;
 
-    &.box-full {
-        width: 100%;
-    }
+//         &:hover {
+//             background-color: lighten(@chGold, 5%);
+//         }
+//     }
+//     &.button-silver {
+//         background-color: @chSilver;
+//         margin-top: 1rem;
 
-    &.button-box {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+//         &:hover {
+//             background-color: lighten(@chSilver, 5%);
+//         }
+//     }
+//     &.button-ryedale {
+//         margin-top: 1rem;
+//     }
 
-        .button-box-left {
-            flex: 0 1 calc(~"100% - 250px");
-        }
-
-        .button-box-right {
-            flex: 0 1 auto;
-        }
-    }
-
-    h1, h2, h3, h4, h5 {
-        margin-top: 0;
-        margin-bottom: 0;
-        font-family: PracticeRegular, serif;
-    }
-
-    h1 {
-        margin-bottom: 1rem;
-    }
-
-    p {
-        font-size: 1.125rem;
-        line-height: 140%;
-        margin: 1rem 0;
-    }
-
-    &.button-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-
-div.number-pickers {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    span {
-        margin-right: 1rem;
-
-        label {
-            font-size: 1.125rem;
-            margin-right: 0.5rem;
-        }
-    }
-}
-
-.button {
-    background-color: @chRed;
-    color: #fff;
-    font-size: 1.25rem;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    transition: 0.3s border-radius;
-    margin-top: 0.5rem;
-    display: inline-block;
-
-    &.button-success {
-        background-color: @success;
-
-        &:hover {
-            background-color: lighten(@success, 5%);
-            color: #fff;
-        }
-    }
-    &.button-gold {
-        background-color: @chGold;
-        margin-top: 1rem;
-
-        &:hover {
-            background-color: lighten(@chGold, 5%);
-        }
-    }
-    &.button-silver {
-        background-color: @chSilver;
-        margin-top: 1rem;
-
-        &:hover {
-            background-color: lighten(@chSilver, 5%);
-        }
-    }
-    &.button-ryedale {
-        margin-top: 1rem;
-    }
-
-    &:hover {
-        background-color: lighten(@chRed, 5%);
-        cursor: pointer;
-        color: #fff;
-    }
-}
+//     &:hover {
+//         background-color: lighten(@chRed, 5%);
+//         cursor: pointer;
+//         color: #fff;
+//     }
+// }
 
 // confirm
 #confirm {
@@ -205,13 +100,6 @@ div.number-pickers {
             font-size: 1.25rem;
             padding: 0.5rem 1rem;
         }
-    }
-}
-
-ul.membership-benefits {
-    li {
-        margin-bottom: 0.75rem;
-        font-size: 1.125rem;
     }
 }
 
