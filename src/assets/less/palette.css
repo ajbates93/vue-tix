@@ -17,21 +17,3 @@
 .bg-chSilver {
   background-color: #89898c !important;
 }
-/* Fonts ----------------------- */
-@font-face {
-  font-family: PracticeBlack;
-  src: url(/fonts/custom/PracticeBlack.otf) format('opentype');
-}
-@font-face {
-  font-family: PracticeBlack;
-  font-style: italic;
-  src: url(/fonts/custom/PracticeBlackIta.otf) format('opentype');
-}
-@font-face {
-  font-family: PracticeRegular;
-  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
-}
-@font-face {
-  font-family: PracticeRegularIta;
-  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
-}

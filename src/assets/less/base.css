@@ -17,24 +17,6 @@
 .bg-chSilver {
   background-color: #89898c !important;
 }
-/* Fonts ----------------------- */
-@font-face {
-  font-family: PracticeBlack;
-  src: url(/fonts/custom/PracticeBlack.otf) format('opentype');
-}
-@font-face {
-  font-family: PracticeBlack;
-  font-style: italic;
-  src: url(/fonts/custom/PracticeBlackIta.otf) format('opentype');
-}
-@font-face {
-  font-family: PracticeRegular;
-  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
-}
-@font-face {
-  font-family: PracticeRegularIta;
-  src: url(/fonts/custom/PracticeRegular.otf) format('opentype');
-}
 body {
   margin: 0;
   color: #34495E;
@@ -49,6 +31,14 @@ h3,
 h4,
 h5 {
   font-family: PracticeRegular, serif;
+}
+h1.default-font,
+h2.default-font,
+h3.default-font,
+h4.default-font,
+h5.default-font {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 }
 h1 {
   font-size: 3rem;
