@@ -72,7 +72,7 @@
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters class="my-3">
-                                        <v-btn color="success" large :loading="loading" @click="calculatePrice(), loader = 'loading'">{{this.buttonText}}</v-btn>
+                                        <v-btn color="bg-chRed" dark large :loading="loading" @click="calculatePrice(), loader = 'loading'">{{this.buttonText}}</v-btn>
                                     </v-row>
                                 </v-container>
                             </v-form>
@@ -90,7 +90,7 @@
                                     </ul>
                                     <p><b>Total: </b><span><b>£{{formatPrice(this.totalCost)}}</b></span></p>
                                 </v-card-text>
-                                <v-btn right color="success darken-1" large @click="progress = 2">Confirm</v-btn>
+                                <v-btn right color="success darken-1" large @click="progress = 2">Add Member Details</v-btn>
                             </v-card>
                         </v-row>
                     </v-container>
@@ -99,7 +99,64 @@
                     <h1 class="mb-5 text-decoration-underline">Member Details</h1>
                     <v-form @submit.prevent class="mb-3">
                         <v-container fluid class="ma-0 pa-0">
-                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c;">mdi-account</v-icon>Primary Member Details</h5>
+                            <v-card color="grey lighten-4" class="pb-0 mb-5">
+                                <v-card-title class="mb-3"><v-icon large left color="#a58c5c" class="mr-3">mdi-gift</v-icon> Is this a gift?</v-card-title>
+                                <v-card-subtitle>If this membership is a gift for someone else you will need to enter the person you are gifting to's details as well as your own.</v-card-subtitle>
+                                <v-card-text class="my-0 py-0">
+                                    <v-checkbox v-model="isGift" class="my-0" label="This is a gift" color="#a58c5c"></v-checkbox>
+                                </v-card-text>
+                            </v-card>
+                            <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c">mdi-gift</v-icon>Gifter Details</h5>
+                            <v-row v-if="isGift">
+                                <v-col cols="12" md="2">
+                                    <v-select
+                                        v-model="gifter.selectTitle"
+                                        :items="titles"
+                                        label="Title"
+                                        required>
+                                    </v-select>
+                                </v-col>
+                                <v-col cols="12" md="5">
+                                    <v-text-field
+                                        v-model.trim="gifter.firstName"
+                                        label="First Name"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="5">
+                                    <v-text-field
+                                        v-model.trim="gifter.lastName"
+                                        label="Last Name"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row v-if="isGift">
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model.trim="gifter.emailAddress"
+                                        label="Email Address"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model.trim="gifter.homePhone"
+                                        label="Home Phone"
+                                        type="number"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model.trim="gifter.mobilePhone"
+                                        label="Mobile Phone"
+                                        type="number"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59">mdi-account</v-icon>Primary Member Details</h5>
                             <p>Please enter the correct name and address information for the person you wish to be the primary member and contact.</p>
                             <v-row>
                                 <v-col cols="12" md="2">
@@ -150,7 +207,7 @@
                                     </v-text-field>
                                 </v-col>
                             </v-row>
-                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c;">mdi-home</v-icon>Primary Member Address</h5>
+                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59;">mdi-home</v-icon>Primary Member Address</h5>
                             <v-row>
                                 <v-col cols="12" md="4">
                                     <v-text-field
@@ -195,7 +252,7 @@
                                     </v-text-field>
                                 </v-col>
                             </v-row>
-                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c;">mdi-account-multiple-plus</v-icon>Additional Member Details</h5>
+                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59;">mdi-account-multiple-plus</v-icon>Additional Member Details</h5>
                             <p>You have selected <span class="font-weight-bold">{{this.additionalMembers}}</span> additional members.</p>
                             <v-row align="center" v-for="guest in additionalMembers" :key="guest.id">
                                 <v-col cols="12" md="1">
@@ -298,13 +355,25 @@ export default {
             loader: null,
             loading: false,
             buttonText: 'Calculate Price',
-            progress: 1,
+            progress: 2,
             tabs: 3,
             additionalMembers: 0,
+            isGift: false,
             primary: {
                 selectTitle: '',
                 firstName: '',
                 lastName: '',
+                emailAddress: '',
+                homePhone: '',
+                mobilePhone: '',
+            },
+            gifter: {
+                selectTitle: '',
+                firstName: '',
+                lastName: '',
+                emailAddress: '',
+                homePhone: '',
+                mobilePhone: '',
             }
 
         }
