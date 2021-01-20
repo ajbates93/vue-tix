@@ -78,3 +78,7 @@ h5 {
 .fade-leave-to {
   opacity: 0;
 }
+.v-application span.primary {
+  background-color: #fc4f59 !important;
+  border-color: #fc4f59 !important;
+}

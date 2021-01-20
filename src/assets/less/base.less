@@ -36,53 +36,6 @@ h5 {
     font-size: 1.5rem;
 }
 
-
-
-// .button {
-//     background-color: @chRed;
-//     color: #fff;
-//     font-size: 1.25rem;
-//     padding: 0.5rem 1rem;
-//     text-decoration: none;
-//     transition: 0.3s border-radius;
-//     margin-top: 0.5rem;
-//     display: inline-block;
-
-//     &.button-success {
-//         background-color: @success;
-
-//         &:hover {
-//             background-color: lighten(@success, 5%);
-//             color: #fff;
-//         }
-//     }
-//     &.button-gold {
-//         background-color: @chGold;
-//         margin-top: 1rem;
-
-//         &:hover {
-//             background-color: lighten(@chGold, 5%);
-//         }
-//     }
-//     &.button-silver {
-//         background-color: @chSilver;
-//         margin-top: 1rem;
-
-//         &:hover {
-//             background-color: lighten(@chSilver, 5%);
-//         }
-//     }
-//     &.button-ryedale {
-//         margin-top: 1rem;
-//     }
-
-//     &:hover {
-//         background-color: lighten(@chRed, 5%);
-//         cursor: pointer;
-//         color: #fff;
-//     }
-// }
-
 // confirm
 #confirm {
     ul {
@@ -116,4 +69,11 @@ h5 {
 .fade-enter,
 .fade-leave-to {
 	opacity: 0;
+}
+
+// overwrites
+
+.v-application span.primary {
+    background-color: @chRed !important;
+    border-color: @chRed !important;
 }

@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     usersForm: {},
+    contactForm: {},
     disabledDates: {
       to: new Date()
     },
@@ -15,6 +16,9 @@ const store = new Vuex.Store({
   mutations: {
     setUsersForm(state, val) {
       state.usersForm = val
+    },
+    setContactForm(state, val) {
+      state.contactForm = val
     },
     setDrawer(state, val) {
       state.drawer = val
@@ -30,7 +34,10 @@ const store = new Vuex.Store({
     },
     async toggleDrawer({commit}, show) {
       commit("setDrawer", show)
-    }
+    },
+    async confirmContact({commit}, contactForm) {
+      commit("setContactForm", contactForm)
+    },
   },
   modules: {
   }
