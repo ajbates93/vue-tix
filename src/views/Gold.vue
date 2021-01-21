@@ -283,25 +283,23 @@
                             <p>You have selected <span class="font-weight-bold">{{this.additionalMembers}}</span> additional members.</p>
                             <v-row align="center" v-for="guest in additionalMembers" :key="guest.id">
                                 <v-col cols="12" md="1">
-                                    <v-subheader>Guest {{guest}}</v-subheader>
+                                    <v-subheader class="pa-0">Guest {{guest}}</v-subheader>
                                 </v-col>
-                                <v-col cols="12" md="4">
+                                <v-col cols="12" md="3">
                                     <v-text-field
                                         v-model.trim="guest.firstName"
                                         label="First Name"
                                         required>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="4">
+                                <v-col cols="12" md="3">
                                     <v-text-field
                                         v-model.trim="guest.lastName"
                                         label="Last Name"
                                         required>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="2">
-                                    <span>TODO: Date of Birth</span>
-                                </v-col>
+                                <DateOfBirthPicker cols="12" md="5"></DateOfBirthPicker>
                             </v-row>
                         </v-container>
                         <v-btn color="grey" dark class="mr-5" large @click="previousStep()">Back</v-btn>
@@ -349,6 +347,7 @@
 
 <script>
 import router from "../router"
+import DateOfBirthPicker from '@/components/DateOfBirthPicker'
 
 export default {
     data() {
@@ -377,7 +376,7 @@ export default {
             loader: null,
             loading: false,
             buttonText: 'Calculate Price',
-            progress: 1,
+            progress: 2,
             tabs: 3,
             additionalMembers: 0,
             isGift: false,
@@ -421,6 +420,7 @@ export default {
         },
     },
     components: {
+        DateOfBirthPicker
     },
     methods: {
         goBack() {
