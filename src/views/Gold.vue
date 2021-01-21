@@ -10,27 +10,9 @@
                 <v-stepper-content step="1">
                     <h1 class="mb-3">Gold Membership</h1>
                     <v-container class="mx-0 pa-0" fluid>
-                        <v-sheet color="grey lighten-4 pa-5 my-5" rounded>
-                            <h4 class="mb-3">Ryedale Resident?</h4>
-                            <p>We offer a discount on membership rates for our local residents. Enter your postcode below to find out if you qualify for our reduced membership rates for <span class="font-weight-medium">Ryedale Residents only.</span></p>
-                            <v-col class="pa-0 ma-0" md="4" cols="12">
-                                <v-form @submit.prevent>
-                                    <v-text-field
-                                        class="mb-0 pb-0"
-                                        v-model.trim="primary.addrPostcode"
-                                        label="Postcode"
-                                        type="text"
-                                        outlined
-                                        clearable
-                                        background-color="white">
-                                    </v-text-field>
-                                    <v-btn class="mt-0 pt-0" right color="success" large>Check Postcode</v-btn>
-                                </v-form>
-                            </v-col>
-                        </v-sheet>
-                        <v-divider class="my-7"></v-divider>
                         <v-row no-gutters>
                             <p>Enter your desired number of members. We will always give you the most cost effective price and match your desired number of memberships to one of our group membership options.</p>
+                            <p>Note: Members with an <b>Adult Guest</b> type of membership cannot visit Castle Howard without being accompanied by the Primary Member that they are bought with.</p>
                         </v-row>
                         <v-row no-gutters>
                             <v-form @submit.prevent>
@@ -83,10 +65,10 @@
                                 <v-card-subtitle style="font-size: 1.25rem; color:#fff;">Our <b>Family Membership</b> is the best option for you.</v-card-subtitle>
                                 <v-card-text>
                                     <ul class="mb-3">
-                                        <li>{{this.selectAdults}} x Adults: £{{formatPrice(this.adultsTotal)}}</li>
-                                        <li>{{this.selectAdultGuests}} x Adult Guests: £{{formatPrice(this.adultsGTotal)}}</li>
-                                        <li>{{this.selectChild}} x Child: £{{formatPrice(this.childsTotal)}}</li>
-                                        <li>{{this.selectChildGuests}} x Child Guests: £{{formatPrice(this.childsGTotal)}}</li>
+                                        <li v-if="this.selectAdults > 0">{{this.selectAdults}} x Adults: £{{formatPrice(this.adultsTotal)}}</li>
+                                        <li v-if="this.selectAdultGuests > 0">{{this.selectAdultGuests}} x Adult Guests: £{{formatPrice(this.adultsGTotal)}}</li>
+                                        <li v-if="this.selectChild > 0">{{this.selectChild}} x Child: £{{formatPrice(this.childsTotal)}}</li>
+                                        <li v-if="this.selectChildGuests > 0">{{this.selectChildGuests}} x Child Guests: £{{formatPrice(this.childsGTotal)}}</li>
                                     </ul>
                                     <p><b>Total: </b><span><b>£{{formatPrice(this.totalCost)}}</b></span></p>
                                 </v-card-text>
@@ -106,7 +88,7 @@
                                     <v-checkbox v-model="isGift" class="my-0" label="This is a gift" color="#a58c5c"></v-checkbox>
                                 </v-card-text>
                             </v-card>
-                            <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c">mdi-gift</v-icon>Gifter Details</h5>
+                            <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c">mdi-gift</v-icon>Your Details</h5>
                             <v-row v-if="isGift">
                                 <v-col cols="12" md="2">
                                     <v-select
@@ -152,6 +134,51 @@
                                         v-model.trim="gifter.mobilePhone"
                                         label="Mobile Phone"
                                         type="number"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c;">mdi-home</v-icon>Your Address</h5>
+                            <v-row v-if="isGift">
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model.trim="gifter.addrLineOne"
+                                        label="Address Line One"
+                                        type="text"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model.trim="gifter.addrLineTwo"
+                                        label="Address Line Two"
+                                        type="text"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row v-if="isGift">
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model.trim="gifter.addrCity"
+                                        label="Town/City"
+                                        type="text"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model.trim="gifter.addrRegion"
+                                        label="Region"
+                                        type="text"
+                                        required>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="2">
+                                    <v-text-field
+                                        v-model.trim="gifter.addrPostcode"
+                                        label="Postcode"
+                                        type="text"
                                         required>
                                     </v-text-field>
                                 </v-col>
@@ -258,27 +285,22 @@
                                 <v-col cols="12" md="1">
                                     <v-subheader>Guest {{guest}}</v-subheader>
                                 </v-col>
-                                <v-col cols="12" md="1">
-                                    <v-select
-                                        v-model="guest.selectTitle"
-                                        :items="titles"
-                                        label="Title"
-                                        required>
-                                    </v-select>
-                                </v-col>
-                                <v-col cols="12" md="5">
+                                <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="guest.firstName"
                                         label="First Name"
                                         required>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="5">
+                                <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="guest.lastName"
                                         label="Last Name"
                                         required>
                                     </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="2">
+                                    <span>TODO: Date of Birth</span>
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -355,7 +377,7 @@ export default {
             loader: null,
             loading: false,
             buttonText: 'Calculate Price',
-            progress: 2,
+            progress: 1,
             tabs: 3,
             additionalMembers: 0,
             isGift: false,
@@ -366,6 +388,11 @@ export default {
                 emailAddress: '',
                 homePhone: '',
                 mobilePhone: '',
+                addrLineOne: '',
+                addrLineTwo: '',
+                addrCity: '',
+                addrRegion: '',
+                addrPostcode: '',
             },
             gifter: {
                 selectTitle: '',
@@ -374,6 +401,11 @@ export default {
                 emailAddress: '',
                 homePhone: '',
                 mobilePhone: '',
+                addrLineOne: '',
+                addrLineTwo: '',
+                addrCity: '',
+                addrRegion: '',
+                addrPostcode: '',
             }
 
         }

@@ -29,7 +29,7 @@
           </v-col>
           <v-col cols="6" md="4" class="align-self-end d-flex justify-end">
             <v-btn color="bg-chRed" to="/confirm" dark large class="my-2">
-              View Pricing
+              Buy now
               <v-icon right>mdi-chevron-right</v-icon>
             </v-btn>
           </v-col>
@@ -58,7 +58,7 @@
           </v-col>
           <v-col cols="6" md="4" class="align-self-end d-flex justify-end">
             <v-btn color="bg-chRed" to="/gold" dark large class="my-2">
-              View Pricing
+              Buy Now
               <v-icon right>mdi-chevron-right</v-icon>
             </v-btn>
           </v-col>
@@ -72,12 +72,30 @@
             <h3>Ryedale Resident Membership</h3>
             <v-btn @click="toggleRyedaleBenefits()" dark large color="bg-chRed" class="my-2"><span style="margin-right: 3px" v-if="!this.showRyedaleBenefits">Show</span><span style="margin-right: 3px" v-else>Hide</span> Benefits</v-btn>
             <transition name="fade">
+              <v-sheet v-if="this.showRyedaleBenefits" color="grey lighten-4 pa-5 my-5" rounded>
+                  <h4 class="mb-3">Enter your postcode</h4>
+                  <p>We offer a discount on membership rates for our local residents. Enter your postcode below to find out if you qualify for our reduced membership rates for <span class="font-weight-medium">Ryedale Residents only.</span></p>
+                  <v-col class="pa-0 ma-0" md="4" cols="12">
+                      <v-form @submit.prevent>
+                          <v-text-field
+                              class="mb-0 pb-0"
+                              v-model.trim="ryedale.postcode"
+                              label="Postcode"
+                              type="text"
+                              outlined
+                              clearable
+                              background-color="white">
+                          </v-text-field>
+                          <v-btn class="mt-0 pt-0" right color="success" large>Check Postcode</v-btn>
+                      </v-form>
+                  </v-col>
+              </v-sheet>
               <p class="my-2" v-if="this.showRyedaleBenefits">There is a special Friends offer for our closest neighbours, Ryedale District Residents. Enjoy three free children's passes for every named adult membership purchased.</p>
             </transition>
           </v-col>
           <v-col cols="6" md="4" class="align-self-end d-flex justify-end">
             <v-btn color="bg-chRed" to="/gold" dark large class="my-2">
-              View Pricing
+              Find out more
               <v-icon right>mdi-chevron-right</v-icon>
             </v-btn>
           </v-col>
@@ -95,6 +113,9 @@ export default {
       showSilverBenefits: false,
       showGoldBenefits: false,
       showRyedaleBenefits: false,
+      ryedale: {
+        postcode: '',
+      }
     }
   },
   methods: {
