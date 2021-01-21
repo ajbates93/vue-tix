@@ -300,7 +300,7 @@
                                     </v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="2">
-                                    <span>TODO: Date of Birth</span>
+                                    <!-- <span>TODO: Date of Birth</span> -->
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -310,31 +310,51 @@
                 </v-stepper-content>
                 <v-stepper-content step="3">
                     <h1 class="mb-5 text-decoration-underline">Confirm Membership</h1>
-                    <v-container class="mb-5">
-                        <v-row align="center">
-                            <v-subheader>Primary Contact Name</v-subheader>
-                            <span class="font-weight-bold">{{primary.firstName}} {{this.primary.lastName}}</span>
+                    <v-container class="mb-5 pa-0">
+                        <v-row no-gutters align="center">
+                            <v-col cols="12" md="3">
+                                <v-subheader>Primary Contact Name</v-subheader>
+                            </v-col>
+                            <v-col cols="12" md="9">
+                                <span class="font-weight-bold">{{primary.firstName}} {{this.primary.lastName}}</span>
+                            </v-col>
                         </v-row>
-                        <v-row align="center">
-                            <v-subheader>Primary Contact Email</v-subheader>
-                            <span class="font-weight-bold">{{primary.emailAddress}}</span>
+                        <v-row no-gutters align="center">
+                            <v-col cols="12" md="3">
+                                <v-subheader>Primary Contact Email</v-subheader>
+                            </v-col>
+                            <v-col cols="12" md="9">
+                                <span class="font-weight-bold">{{primary.emailAddress}}</span>
+                            </v-col>
                         </v-row>
-                        <v-row align="center">
-                            <v-subheader>Primary Contact Home Phone</v-subheader>
-                            <span class="font-weight-bold">{{primary.homePhone}}</span>
+                        <v-row no-gutters align="center">
+                            <v-col cols="12" md="3">
+                                <v-subheader>Primary Contact Home Phone</v-subheader>
+                            </v-col>
+                            <v-col cols="12" md="9">
+                                <span class="font-weight-bold">{{primary.homePhone}}</span>
+                            </v-col>
                         </v-row>
-                        <v-row align="center">
-                            <v-subheader>Primary Contact Mobile Phone</v-subheader>
-                            <span class="font-weight-bold">{{primary.mobilePhone}}</span>
+                        <v-row no-gutters align="center">
+                            <v-col cols="12" md="3">
+                                <v-subheader>Primary Contact Mobile Phone</v-subheader>
+                            </v-col>
+                            <v-col cols="12" md="9">
+                                <span class="font-weight-bold">{{primary.mobilePhone}}</span>
+                            </v-col>
                         </v-row>
-                        <v-divider></v-divider>
-                        <v-row align="center">
-                            <v-subheader>Primary Contact Address</v-subheader>
-                            <div class="mb-1">{{primary.addrLineOne}}</div>
-                            <div class="mb-1">{{primary.addrLineTwo}}</div>
-                            <div class="mb-1">{{primary.addrCity}}</div>
-                            <div class="mb-1">{{primary.addrRegion}}</div>
-                            <div class="mb-1">{{primary.addrPostcode}}</div>
+                        <v-divider class="my-5"></v-divider>
+                        <v-row no-gutters align="top">
+                            <v-col cols="12" md="3">
+                                <v-subheader>Primary Contact Address</v-subheader>
+                            </v-col>
+                            <v-col cols="12" md="9">
+                                <div class="mb-1 d-block">{{primary.addrLineOne}}</div>
+                                <div class="mb-1 d-block">{{primary.addrLineTwo}}</div>
+                                <div class="mb-1 d-block">{{primary.addrCity}}</div>
+                                <div class="mb-1 d-block">{{primary.addrRegion}}</div>
+                                <div class="mb-1 d-block">{{primary.addrPostcode}}</div>
+                            </v-col>
                         </v-row>
                     </v-container>
                     <v-form @submit.prevent class="mb-3">
@@ -377,7 +397,7 @@ export default {
             loader: null,
             loading: false,
             buttonText: 'Calculate Price',
-            progress: 1,
+            progress: 2,
             tabs: 3,
             additionalMembers: 0,
             isGift: false,
