@@ -4,7 +4,8 @@
             <v-stepper-header>
                 <v-stepper-step :key="1" :complete="progress > 1" step="1">Choose Membership</v-stepper-step>
                 <v-stepper-step :key="2" :complete="progress > 2" step="2">Member Details</v-stepper-step>
-                <v-stepper-step :key="3" :complete="progress > 3" step="3">Confirm Selections</v-stepper-step>
+                <v-stepper-step :key="3" :complete="progress > 3" step="3">Confirm Details</v-stepper-step>
+                <v-stepper-step :key="4" :complete="progress > 4" step="4">Payment</v-stepper-step>
             </v-stepper-header>
             <v-stepper-items>
                 <v-stepper-content step="1">
@@ -78,7 +79,7 @@
                     </v-container>
                 </v-stepper-content>
                 <v-stepper-content step="2">
-                    <h1 class="mb-5 text-decoration-underline">Member Details</h1>
+                    <h1 class="mb-5">Member Details</h1>
                     <v-form @submit.prevent class="mb-3">
                         <v-container fluid class="ma-0 pa-0">
                             <v-card color="grey lighten-4" class="pb-0 mb-5">
@@ -305,11 +306,11 @@
                             </v-row>
                         </v-container>
                         <v-btn color="grey" dark class="mr-5" large @click="previousStep()">Back</v-btn>
-                        <v-btn color="success" large @click="nextStep()">Confirm Member Details</v-btn>
+                        <v-btn color="success" large @click="nextStep()">Confirm Details</v-btn>
                     </v-form>
                 </v-stepper-content>
                 <v-stepper-content step="3">
-                    <h1 class="mb-5 text-decoration-underline">Confirm Membership</h1>
+                    <h1 class="mb-5">Confirm Details</h1>
                     <v-container class="mb-5 pa-0">
                         <v-row no-gutters align="center">
                             <v-col cols="12" md="3">
@@ -356,11 +357,146 @@
                                 <div class="mb-1 d-block">{{primary.addrPostcode}}</div>
                             </v-col>
                         </v-row>
+                        <v-divider class="my-5"></v-divider>
+                        <p>If these are correct, click confirm and continue on to payment.</p>
                     </v-container>
                     <v-form @submit.prevent class="mb-3">
                         <v-btn color="grey" dark class="mr-5" large @click="previousStep()">Back</v-btn>
                         <v-btn color="success" large @click="nextStep()">Confirm Member Details</v-btn>
                     </v-form>
+                </v-stepper-content>
+                <v-stepper-content step="4">
+                    <h1>Payment</h1>
+                    <p class="my-5">There are two ways to pay for your Castle Howard Membership. The preferred option is Direct Debit. This comes with a <b>10%</b> discount to your Membership cost. We can also accept PayPal payemnts.</p>
+                    <v-container fluid class="pa-0 my-5">
+                        <v-row>
+                            <v-col cols="12" :md="showDD ? '8' : '6'" class="transition">
+                                <v-banner color="success" dark class="rounded-t"><v-icon left class="pl-0 ml-0 mr-3">mdi-star</v-icon><small>Preferred Payment Method</small></v-banner>
+                                <v-card color="grey lighten-3" class="rounded-t-0 pb-1">
+                                    <v-card-title>Direct Debit</v-card-title>
+                                    <v-card-subtitle>Choose to pay by Direct Debit and we'll give you 10% off your Membership.</v-card-subtitle>
+                                    <v-spacer></v-spacer>
+                                    <v-card-text>
+                                        <v-container class="pa-0">
+                                            <v-row align="top" no-gutters justify="space-between">
+                                                <v-col md="6">
+                                                    <v-btn @click="toggleDD()" color="success">Choose this<v-icon right>mdi-chevron-right</v-icon></v-btn>
+                                                </v-col>
+                                                <v-col md="6" align-self="end">
+                                                    <v-img
+                                                        class="ml-auto"
+                                                        max-width="100"
+                                                        src="@/assets/directdebit.png"
+                                                        >
+                                                    </v-img>
+                                                </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </v-card-text>
+                                    <v-card v-if="showDD" class="pa-5 ma-5">
+                                        <v-form @submit.prevent>
+                                            <v-checkbox
+                                                dense
+                                                v-model="payment.billingDifferent"
+                                                label="Billing Address different from Member Address?"
+                                                ></v-checkbox>
+                                            <v-text-field
+                                                outlined
+                                                dense
+                                                v-model.trim="payment.nameAcc"
+                                                label="Name(s) of Account Holder(s)"
+                                                required>
+                                            </v-text-field>
+                                            <v-text-field
+                                                outlined
+                                                dense
+                                                v-model.trim="payment.accNumber"
+                                                label="Bank/Building Society Account Number"
+                                                required>
+                                            </v-text-field>
+                                            <v-text-field
+                                                outlined
+                                                dense
+                                                v-model.trim="payment.sortCode"
+                                                label="Branch Sort Code"
+                                                required>
+                                            </v-text-field>
+                                            <v-checkbox
+                                                v-model="payment.authorised"
+                                                label="Please tick to confirm you are the authorised signatory on the above account"></v-checkbox>
+                                            <v-btn color="success" :disabled="!this.payment.authorised" @click="confirmPaymentDetails()">Confirm</v-btn>
+                                        </v-form>
+                                    </v-card>
+                                    <v-chip filter label v-if="showDDSuccess" color="grey lighten-2" class="pa-3 mx-4 mt-0 mb-3">
+                                        <v-icon class="mr-2">mdi-check</v-icon> Direct Debit Details Saved
+                                        <v-btn class="ml-2" x-small @click="editPaymentDetails()">edit details</v-btn>
+                                    </v-chip>
+                                </v-card>
+                            </v-col>
+                            <v-col cols="12" :md="showDD ? '4' : '6'">
+                                <v-banner color="grey lighten-3" class="rounded-t"><v-icon left class="pl-0 ml-0 mr-3">mdi-credit-card-outline</v-icon><small>Alternative Payment Method</small></v-banner>
+                                <v-card color="grey lighten-4 mb-5" class="rounded-t-0">
+                                    <v-card-title>Credit/Debit Card</v-card-title>
+                                    <v-card-subtitle>You can choose to pay via Credit/Debit card. </v-card-subtitle>
+                                    <v-spacer></v-spacer>
+                                    <v-card-text>
+                                        <v-btn color="grey lighten-2">Choose this<v-icon right>mdi-chevron-right</v-icon></v-btn>
+                                    </v-card-text>
+                                </v-card>
+                                <v-banner color="grey lighten-3" class="rounded-t"><v-icon left class="pl-0 ml-0 mr-3">mdi-credit-card-outline</v-icon><small>Alternative Payment Method</small></v-banner>
+                                <v-card color="grey lighten-4" class="rounded-t-0">
+                                    <v-card-title>PayPal</v-card-title>
+                                    <v-card-subtitle>You can also choose to pay via PayPal. </v-card-subtitle>
+                                    <v-spacer></v-spacer>
+                                    <v-card-text>
+                                        <v-btn color="grey lighten-2">Choose this<v-icon right>mdi-chevron-right</v-icon></v-btn>
+                                    </v-card-text>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                    <v-form @submit.prevent class="my-5">
+                        <v-btn color="grey" dark class="mr-5" large @click="previousStep()">Back</v-btn>
+                        <v-btn color="success" large @click="nextStep()">Confirm Payment</v-btn>
+                    </v-form>
+                </v-stepper-content>
+                <v-stepper-content step="5">
+                    <h1>Thank You!</h1>
+                    <p class="my-5">Your payment is now being processed. You will recieve an email confirmation to confirm your purchase.</p>
+                    <v-divider></v-divider>
+                    <p class="my-5">Thank you for becoming a part of the Castle Howard membership. To take full advantage of your new membership, enter a password below to set up your personal account. This account can be used for booking tickets, finding exclusive membership deals and much more.</p>
+                    <v-card max-width="600" color="grey lighten-4" class="my-10 mx-auto pa-5">
+                        <v-card-title>
+                            Create Account
+                        </v-card-title>
+                        <v-card-subtitle>
+                            Enter a secure password
+                        </v-card-subtitle>
+                        <v-card-text>
+                            <v-form @submit.prevent class="my-0">
+                                <v-text-field
+                                    class="mt-0 pt-0"
+                                    full-width="false"
+                                    v-model.trim="primary.emailAddress"
+                                    label="Email Address"
+                                    readonly>
+                                </v-text-field>
+                                <v-text-field
+                                    v-model="primary.password"
+                                    type="password"
+                                    label="Password"
+                                    required>
+                                </v-text-field>
+                                <v-btn color="bg-chRed" dark large class="my-5">
+                                    Join
+                                </v-btn>
+                                <v-btn color="grey lighten-2" large class="my-5 ml-2">
+                                    Cancel
+                                </v-btn>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
+                    <v-btn large class="my-5" to="/"><v-icon class="mr-3">mdi-home</v-icon> Back to Dashboard</v-btn>
                 </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
@@ -397,10 +533,11 @@ export default {
             loader: null,
             loading: false,
             buttonText: 'Calculate Price',
-            progress: 2,
-            tabs: 3,
+            progress: 1,
             additionalMembers: 0,
             isGift: false,
+            showDD: false,
+            showDDSuccess: false,
             primary: {
                 selectTitle: '',
                 firstName: '',
@@ -413,6 +550,7 @@ export default {
                 addrCity: '',
                 addrRegion: '',
                 addrPostcode: '',
+                password: '',
             },
             gifter: {
                 selectTitle: '',
@@ -426,7 +564,15 @@ export default {
                 addrCity: '',
                 addrRegion: '',
                 addrPostcode: '',
-            }
+            },
+            payment: {
+                billingDifferent: false,
+                nameAcc: '',
+                accNumber: '',
+                sortCode: '',
+                authorised: false,
+            },
+            paymentDetailsConfirmed: false,
 
         }
     },
@@ -459,6 +605,20 @@ export default {
                 childNo: this.usersForm.childNo,
                 childGuestNo: this.usersForm.childGuestNo
             })
+        },
+        confirmPaymentDetails() {
+            this.paymentDetailsConfirmed = true
+            this.showDD = false
+            this.showDDSuccess = true
+        },
+        editPaymentDetails() {
+            this.paymentDetailsConfirmed = false,
+            this.showDD = true,
+            this.showDDSuccess = false,
+            this.payment.authorised = false
+        },
+        toggleDD() {
+            this.showDD = !this.showDD
         },
         confirmContactForm() {
             this.$store.dispatch("confirmContact", {
