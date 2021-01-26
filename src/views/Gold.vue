@@ -2,7 +2,7 @@
     <v-container class="mx-auto">
         <v-stepper v-model="progress">
             <v-stepper-header>
-                <v-stepper-step :key="1" :complete="progress > 1" step="1">Choose Membership</v-stepper-step>
+                <v-stepper-step :key="1" :complete="progress > 1" step="1">Choose Membership Types</v-stepper-step>
                 <v-stepper-step :key="2" :complete="progress > 2" step="2">Member Details</v-stepper-step>
                 <v-stepper-step :key="3" :complete="progress > 3" step="3">Confirm Details</v-stepper-step>
                 <v-stepper-step :key="4" :complete="progress > 4" step="4">Payment</v-stepper-step>
@@ -19,40 +19,40 @@
                             <v-form @submit.prevent>
                                 <v-container fluid class="mx-0 pa-0">
                                     <v-row class="mb-0 pb-0">
-                                        <v-col class="mb-0 pb-0" cols="6" md="3">
+                                        <v-col class="mb-0 pb-0" cols="6">
                                             <v-select outlined v-model="selectAdults" label="Adults" :items="adults" required></v-select>
                                         </v-col>
-                                        <v-col class="mb-0 pb-0" cols="6" md="3">
+                                        <!-- <v-col class="mb-0 pb-0" cols="6" md="3">
                                             <v-select outlined v-model="selectAdultGuests" label="Adult Guests" :items="adultGuests"></v-select>
+                                        </v-col> -->
+                                        <v-col class="mb-0 pb-0" cols="6">
+                                            <v-select outlined v-model="selectChild" label="Child (Age 4 - 16)" :items="child"></v-select>
                                         </v-col>
-                                        <v-col class="mb-0 pb-0" cols="6" md="3">
-                                            <v-select outlined v-model="selectChild" label="Child (4+)" :items="child"></v-select>
-                                        </v-col>
-                                        <v-col class="mb-0 pb-0" cols="6" md="3">
-                                            <v-select outlined v-model="selectChildGuests" label="Child Guests (4+)" :items="childGuests"></v-select>
-                                        </v-col>
+                                        <!-- <v-col class="mb-0 pb-0" cols="6" md="3">
+                                            <v-select outlined v-model="selectChildGuests" label="Child Guests (Age 4 - 16)" :items="childGuests"></v-select>
+                                        </v-col> -->
                                     </v-row>
                                     <v-row class="mt-0 pt-0">
-                                        <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6" md="3">
+                                        <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6">
                                             <v-sheet class="grey lighten-4 pa-1" rounded>
                                                 <v-icon transition="fade" color="#fc4f59" large v-for="item in selectAdults" :key="item.id">mdi-account</v-icon>
                                             </v-sheet>
                                         </v-col>
-                                        <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6" md="3">
+                                        <!-- <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6" md="3">
                                             <v-sheet class="grey lighten-4 pa-1" rounded>
                                                 <v-icon class="guest" large v-for="item in selectAdultGuests" :key="item.id">mdi-account</v-icon>
                                             </v-sheet>
-                                        </v-col>
-                                        <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6" md="3">
+                                        </v-col> -->
+                                        <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6">
                                             <v-sheet class="grey lighten-4 pa-1" rounded>
                                                 <v-icon color="#fc4f59" large v-for="item in selectChild" :key="item.id">mdi-account-child</v-icon>
                                             </v-sheet>
                                         </v-col>
-                                        <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6" md="3">
+                                        <!-- <v-col class="d-flex justify-start align-center mt-0 pt-0" cols="6" md="3">
                                             <v-sheet class="grey lighten-4 pa-1" rounded>
                                                 <v-icon class="guest" large v-for="item in selectChildGuests" :key="item.id">mdi-account-child</v-icon>
                                             </v-sheet>
-                                        </v-col>
+                                        </v-col> -->
                                     </v-row>
                                     <v-row no-gutters class="my-3">
                                         <v-btn color="bg-chRed" dark large :loading="loading" @click="calculatePrice(), loader = 'loading'">{{this.buttonText}}</v-btn>
@@ -71,7 +71,8 @@
                                         <li v-if="this.selectChild > 0">{{this.selectChild}} x Child: £{{formatPrice(this.childsTotal)}}</li>
                                         <li v-if="this.selectChildGuests > 0">{{this.selectChildGuests}} x Child Guests: £{{formatPrice(this.childsGTotal)}}</li>
                                     </ul>
-                                    <p><b>Total: </b><span><b>£{{formatPrice(this.totalCost)}}</b></span></p>
+                                    <p class="mb-1"><b>Total: </b><span><b>£{{formatPrice(this.totalCost)}}</b></span></p>
+                                    <p><b>Total (Direct Debit): </b><span class="text-decoration-line-through mr-1">£{{formatPrice(this.totalCost)}}</span><b>£{{formatPrice(this.totalDDCost)}}</b></p>
                                 </v-card-text>
                                 <v-btn right color="success darken-1" large @click="progress = 2">Add Member Details</v-btn>
                             </v-card>
@@ -92,21 +93,25 @@
                             <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c">mdi-gift</v-icon>Your Details</h5>
                             <v-row v-if="isGift">
                                 <v-col cols="12" md="2">
-                                    <v-select
+                                    <!-- <v-select
                                         v-model="gifter.selectTitle"
                                         :items="titles"
                                         label="Title"
                                         required>
-                                    </v-select>
+                                    </v-select> -->
+                                    <v-text-field
+                                        v-model.trim="gifter.title"
+                                        label="Title">
+                                    </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="5">
+                                <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="gifter.firstName"
                                         label="First Name"
                                         required>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="5">
+                                <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="gifter.lastName"
                                         label="Last Name"
@@ -137,6 +142,11 @@
                                         type="number"
                                         required>
                                     </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row v-if="isGift">
+                                <v-col cols="12">
+                                    <v-checkbox v-model="primary.optOut" color="#fc4f59" class="ma-0" label="We may use your email from time-to-time for marketing purposes. If you would not like to receive these please check this box to opt out." />
                                 </v-col>
                             </v-row>
                             <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c;">mdi-home</v-icon>Your Address</h5>
@@ -188,21 +198,25 @@
                             <p>Please enter the correct name and address information for the person you wish to be the primary member and contact.</p>
                             <v-row>
                                 <v-col cols="12" md="2">
-                                    <v-select
+                                    <!-- <v-select
                                         v-model="primary.selectTitle"
                                         :items="titles"
                                         label="Title"
                                         required>
-                                    </v-select>
+                                    </v-select> -->
+                                    <v-text-field
+                                        v-model.trim="primary.title"
+                                        label="Title">
+                                    </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="5">
+                                <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="primary.firstName"
                                         label="First Name"
                                         required>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="5">
+                                <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="primary.lastName"
                                         label="Last Name"
@@ -218,7 +232,7 @@
                                         required>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="4">
+                                <v-col cols="12" md="3">
                                     <v-text-field
                                         v-model.trim="primary.homePhone"
                                         label="Home Phone"
@@ -226,13 +240,23 @@
                                         required>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="4">
+                                <v-col cols="12" md="3">
                                     <v-text-field
                                         v-model.trim="primary.mobilePhone"
                                         label="Mobile Phone"
                                         type="number"
                                         required>
                                     </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row v-if="!isGift">
+                                <v-col cols="12">
+                                    <v-text-field type="password" v-model.trim="primary.password" label="Password"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row v-if="!isGift">
+                                <v-col cols="12">
+                                    <v-checkbox v-model="primary.optOut" color="#fc4f59" class="ma-0" label="We may use your email from time-to-time for marketing purposes. If you would not like to receive these please check this box to opt out." />
                                 </v-col>
                             </v-row>
                             <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59;">mdi-home</v-icon>Primary Member Address</h5>
@@ -281,27 +305,159 @@
                                 </v-col>
                             </v-row>
                             <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59;">mdi-account-multiple-plus</v-icon>Additional Member Details</h5>
-                            <p>You have selected <span class="font-weight-bold">{{this.additionalMembers}}</span> additional members.</p>
-                            <v-row align="center" v-for="guest in additionalMembers" :key="guest.id">
-                                <v-col cols="12" md="1">
-                                    <v-subheader>Guest {{guest}}</v-subheader>
+                            <p>You have selected <span class="font-weight-bold">{{this.additionalMembers}}</span> additional members. If you wish one of your members to remain as an unnamed guest, check the box.</p>
+                            <v-row align="center" class="mb-2">
+                                <v-col cols="12" md="1" class="py-0 text-center">
+                                    <v-icon large color="#fc4f59">mdi-account</v-icon>
+                                    <v-subheader class="pa-0 font-weight-bold text-center justify-center">Primary Member</v-subheader>
                                 </v-col>
-                                <v-col cols="12" md="4">
-                                    <v-text-field
-                                        v-model.trim="guest.firstName"
-                                        label="First Name"
-                                        required>
-                                    </v-text-field>
+                                <v-col cols="12" md="11" class="py-0">
+                                    <v-container>
+                                        <v-row align="center">
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="primary.title"
+                                                    label="Title"
+                                                    disabled>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="primary.firstName"
+                                                    label="First Name"
+                                                    disabled
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="primary.lastName"
+                                                    label="Last Name"
+                                                    disabled
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
                                 </v-col>
-                                <v-col cols="12" md="4">
-                                    <v-text-field
-                                        v-model.trim="guest.lastName"
-                                        label="Last Name"
-                                        required>
-                                    </v-text-field>
+                            </v-row>
+                            <v-row align="center" v-for="guest in additionalMembers" :key="guest.id" class="mb-2">
+                                <v-col cols="12" md="1" class="py-0 text-center">
+                                    <v-icon large color="#fc4f59">mdi-account</v-icon>
+                                    <v-subheader class="pa-0 font-weight-bold text-center justify-center">Adult {{guest}}</v-subheader>
                                 </v-col>
-                                <v-col cols="12" md="2">
-                                    <!-- <span>TODO: Date of Birth</span> -->
+                                <v-col cols="12" md="11" class="py-0">
+                                    <v-container>
+                                        <v-row align="center">
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-checkbox
+                                                    v-model="guest.unnamed"
+                                                    label="Unnamed Guest"
+                                                    color="#fc4f59"
+                                                >
+                                                </v-checkbox>
+                                            </v-col>
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="guest.title"
+                                                    label="Title"
+                                                    :disabled="guest.unnamed">
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="guest.firstName"
+                                                    label="First Name"
+                                                    :disabled="guest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="guest.lastName"
+                                                    label="Last Name"
+                                                    :disabled="guest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-col>
+                            </v-row>
+                            <v-row align="center" v-for="childGuest in selectChild" :key="childGuest.id" class="mb-2">
+                                <v-col cols="12" md="1" class="py-0 text-center">
+                                    <v-icon large color="#fc4f59">mdi-account-child</v-icon>
+                                    <v-subheader class="pa-0 font-weight-bold text-center justify-center">Child {{childGuest}}</v-subheader>
+                                </v-col>
+                                <v-col cols="12" md="11" class="py-0">
+                                    <v-container>
+                                        <v-row align="center">
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-checkbox
+                                                    v-model="childGuest.unnamed"
+                                                    label="Unnamed Guest"
+                                                    color="#fc4f59"
+                                                >
+                                                </v-checkbox>
+                                            </v-col>
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="childGuest.title"
+                                                    label="Title"
+                                                    :disabled="childGuest.unnamed">
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="childGuest.firstName"
+                                                    label="First Name"
+                                                    :disabled="childGuest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="childGuest.lastName"
+                                                    label="Last Name"
+                                                    :disabled="childGuest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row align="center" class="pl-5">
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-subheader class="pa-0">Their DOB:</v-subheader>
+                                            </v-col>
+                                            <v-col cols="12" md="4" class="py-0">
+                                                <v-row>
+                                                    <v-col cols="4" class="py-0">
+                                                        <v-select
+                                                            v-model.trim="childGuest.dobDay"
+                                                            label="Day"
+                                                            :disabled="childGuest.unnamed"
+                                                            required>
+                                                        </v-select>
+                                                    </v-col>
+                                                    <v-col cols="4" class="py-0">
+                                                        <v-select
+                                                            v-model.trim="childGuest.dobMonth"
+                                                            label="Month"
+                                                            :disabled="childGuest.unnamed"
+                                                            required>
+                                                        </v-select>
+                                                    </v-col>
+                                                    <v-col cols="4" class="py-0">
+                                                        <v-select
+                                                            v-model.trim="childGuest.dobYear"
+                                                            label="Year"
+                                                            :disabled="childGuest.unnamed"
+                                                            required>
+                                                        </v-select>
+                                                    </v-col>
+                                                </v-row>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -436,17 +592,8 @@
                             <v-col cols="12" :md="showDD ? '4' : '6'">
                                 <v-banner color="grey lighten-3" class="rounded-t"><v-icon left class="pl-0 ml-0 mr-3">mdi-credit-card-outline</v-icon><small>Alternative Payment Method</small></v-banner>
                                 <v-card color="grey lighten-4 mb-5" class="rounded-t-0">
-                                    <v-card-title>Credit/Debit Card</v-card-title>
-                                    <v-card-subtitle>You can choose to pay via Credit/Debit card. </v-card-subtitle>
-                                    <v-spacer></v-spacer>
-                                    <v-card-text>
-                                        <v-btn color="grey lighten-2">Choose this<v-icon right>mdi-chevron-right</v-icon></v-btn>
-                                    </v-card-text>
-                                </v-card>
-                                <v-banner color="grey lighten-3" class="rounded-t"><v-icon left class="pl-0 ml-0 mr-3">mdi-credit-card-outline</v-icon><small>Alternative Payment Method</small></v-banner>
-                                <v-card color="grey lighten-4" class="rounded-t-0">
-                                    <v-card-title>PayPal</v-card-title>
-                                    <v-card-subtitle>You can also choose to pay via PayPal. </v-card-subtitle>
+                                    <v-card-title>Pay by Card/Paypal</v-card-title>
+                                    <v-card-subtitle>You can choose to pay via Credit/Debit card or via Paypal. </v-card-subtitle>
                                     <v-spacer></v-spacer>
                                     <v-card-text>
                                         <v-btn color="grey lighten-2">Choose this<v-icon right>mdi-chevron-right</v-icon></v-btn>
@@ -476,7 +623,6 @@
                             <v-form @submit.prevent class="my-0">
                                 <v-text-field
                                     class="mt-0 pt-0"
-                                    full-width="false"
                                     v-model.trim="primary.emailAddress"
                                     label="Email Address"
                                     readonly>
@@ -510,15 +656,9 @@ export default {
     data() {
         return {
             selectAdults: 0,
-            selectAdultGuests: 0,
             selectChild: 0,
-            selectChildGuests: 0,
-            selectTitle: '',
             adults: [ 0, 1, 2, 3, 4, 5 ],
-            adultGuests: [ 0, 1, 2, 3, 4, 5 ],
             child: [ 0, 1, 2, 3, 4, 5 ],
-            childGuests: [ 0, 1, 2, 3, 4, 5 ],
-            titles: [ 'Mr', 'Mrs', 'Miss', 'Master', 'Dr', 'Lord' ],
             showSummary: false,
             blurSummary: true,
             adultPrice: 85,
@@ -530,16 +670,17 @@ export default {
             childsTotal: null,
             childsGTotal: null,
             totalCost: null,
+            totalDDCost: null,
             loader: null,
             loading: false,
             buttonText: 'Calculate Price',
             progress: 1,
             additionalMembers: 0,
             isGift: false,
-            showDD: false,
+            showDD: true,
             showDDSuccess: false,
             primary: {
-                selectTitle: '',
+                title: '',
                 firstName: '',
                 lastName: '',
                 emailAddress: '',
@@ -551,9 +692,10 @@ export default {
                 addrRegion: '',
                 addrPostcode: '',
                 password: '',
+                optOut: false,
             },
             gifter: {
-                selectTitle: '',
+                title: '',
                 firstName: '',
                 lastName: '',
                 emailAddress: '',
@@ -564,6 +706,9 @@ export default {
                 addrCity: '',
                 addrRegion: '',
                 addrPostcode: '',
+            },
+            guest: {
+                unnamed: false
             },
             payment: {
                 billingDifferent: false,
@@ -635,10 +780,9 @@ export default {
         calculatePrice() {
             this.blurSummary = true
             this.adultsTotal = this.sumPrice(this.adultPrice, this.selectAdults)
-            this.adultsGTotal = this.sumPrice(this.adultGPrice, this.selectAdultGuests)
             this.childsTotal = this.sumPrice(this.childPrice, this.selectChild)
-            this.childsGTotal = this.sumPrice(this.childGuestPrice, this.selectChildGuests)
-            this.totalCost = this.adultsTotal + this.adultsGTotal + this.childsTotal + this.childsGTotal;
+            this.totalCost = this.adultsTotal + this.childsTotal;
+            this.totalDDCost = (this.totalCost / 10) * 9 
             this.additionalMembers = this.selectAdults - 1
         },
     }    

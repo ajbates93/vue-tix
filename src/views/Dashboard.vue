@@ -9,7 +9,7 @@
       <v-container class="mx-auto pa-0">
         <v-row no-gutters>
           <v-col cols="12" sm="6" md="8">
-            <h3>Silver Friend Membership</h3>
+            <h3 class="mb-3">Silver Friend Membership</h3>
             <v-btn color="bg-chSilver" dark large @click="toggleSilverBenefits()" class="my-2"><span style="margin-right: 3px" v-if="!this.showSilverBenefits">Show</span><span style="margin-right: 3px" v-else>Hide </span> Benefits</v-btn>
             <transition name="fade">
               <div class="my-2" v-if="this.showSilverBenefits">
@@ -40,7 +40,7 @@
       <v-container class="mx-auto pa-0">
         <v-row no-gutters>
           <v-col cols="12" sm="6" md="8">
-            <h3>Gold Friend Membership</h3>
+            <h3 class="mb-3">Gold Friend Membership</h3>
             <v-btn @click="toggleGoldBenefits()" dark large color="bg-chGold" class="my-2"><span style="margin-right: 3px" v-if="!this.showGoldBenefits">Show</span><span style="margin-right: 3px" v-else>Hide</span> Benefits</v-btn>
             <transition name="fade">
               <div class="my-2" v-if="this.showGoldBenefits">
@@ -69,8 +69,8 @@
       <v-container class="mx-auto pa-0">
         <v-row no-gutters>
           <v-col cols="12" sm="6" md="8">
-            <h3>Ryedale Resident Membership</h3>
-            <v-btn @click="toggleRyedaleBenefits()" dark large color="bg-chRed" class="my-2"><span style="margin-right: 3px" v-if="!this.showRyedaleBenefits">Show</span><span style="margin-right: 3px" v-else>Hide</span> Benefits</v-btn>
+            <h3 class="mb-3">Ryedale Resident Membership</h3>
+            <v-btn @click="toggleRyedaleBenefits()" dark large color="bg-chRed" class="my-2"><span style="margin-right: 3px" v-if="!this.showRyedaleBenefits">Show</span><span style="margin-right: 3px" v-else>Hide</span> Eligibility Checker</v-btn>
             <transition name="fade">
               <v-sheet v-if="this.showRyedaleBenefits" color="grey lighten-4 pa-5 my-5" rounded>
                   <h4 class="mb-3">Enter your postcode</h4>
