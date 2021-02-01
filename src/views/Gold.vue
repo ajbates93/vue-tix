@@ -81,24 +81,18 @@
                 </v-stepper-content>
                 <v-stepper-content step="2">
                     <h1 class="mb-5">Member Details</h1>
-                    <v-form @submit.prevent class="mb-3">
-                        <v-container fluid class="ma-0 pa-0">
-                            <v-card color="grey lighten-4" class="pb-0 mb-5">
-                                <v-card-title class="mb-3"><v-icon large left color="#a58c5c" class="mr-3">mdi-gift</v-icon> Is this a gift?</v-card-title>
-                                <v-card-subtitle>If this membership is a gift for someone else you will need to enter the person you are gifting to's details as well as your own.</v-card-subtitle>
-                                <v-card-text class="my-0 py-0">
-                                    <v-checkbox v-model="isGift" class="my-0" label="This is a gift" color="#a58c5c"></v-checkbox>
-                                </v-card-text>
-                            </v-card>
-                            <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c">mdi-gift</v-icon>Your Details</h5>
-                            <v-row v-if="isGift">
+                    <v-container fluid class="ma-0 pa-0">
+                        <v-card color="grey lighten-4" class="pb-0 mb-5">
+                            <v-card-title class="mb-3"><v-icon large left color="#a58c5c" class="mr-3">mdi-gift</v-icon> Is this a gift?</v-card-title>
+                            <v-card-subtitle>If this membership is a gift for someone else you will need to enter the person you are gifting to's details as well as your own.</v-card-subtitle>
+                            <v-card-text class="my-0 py-0">
+                                <v-checkbox v-model="isGift" class="my-0" label="This is a gift" color="#a58c5c"></v-checkbox>
+                            </v-card-text>
+                        </v-card>
+                        <v-form v-if="isGift" @submit.prevent>
+                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c">mdi-gift</v-icon>Your Details</h5>
+                            <v-row>
                                 <v-col cols="12" md="2">
-                                    <!-- <v-select
-                                        v-model="gifter.selectTitle"
-                                        :items="titles"
-                                        label="Title"
-                                        required>
-                                    </v-select> -->
                                     <v-text-field
                                         v-model.trim="gifter.title"
                                         label="Title">
@@ -119,7 +113,7 @@
                                     </v-text-field>
                                 </v-col>
                             </v-row>
-                            <v-row v-if="isGift">
+                            <v-row>
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="gifter.emailAddress"
@@ -144,13 +138,13 @@
                                     </v-text-field>
                                 </v-col>
                             </v-row>
-                            <v-row v-if="isGift">
+                            <v-row>
                                 <v-col cols="12">
                                     <v-checkbox v-model="primary.optOut" color="#fc4f59" class="ma-0" label="We may use your email from time-to-time for marketing purposes. If you would not like to receive these please check this box to opt out." />
                                 </v-col>
                             </v-row>
-                            <h5 v-if="isGift" class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c;">mdi-home</v-icon>Your Address</h5>
-                            <v-row v-if="isGift">
+                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #a58c5c;">mdi-home</v-icon>Your Address</h5>
+                            <v-row>
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="gifter.addrLineOne"
@@ -168,7 +162,7 @@
                                     </v-text-field>
                                 </v-col>
                             </v-row>
-                            <v-row v-if="isGift">
+                            <v-row>
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model.trim="gifter.addrCity"
@@ -194,6 +188,8 @@
                                     </v-text-field>
                                 </v-col>
                             </v-row>
+                        </v-form>
+                        <v-form @submit.prevent>
                             <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59">mdi-account</v-icon>Primary Member Details</h5>
                             <p>Please enter the correct name and address information for the person you wish to be the primary member and contact.</p>
                             <v-row>
@@ -304,168 +300,168 @@
                                     </v-text-field>
                                 </v-col>
                             </v-row>
-                            <div v-if="this.additionalMembers > 0">
-                                <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59;">mdi-account-multiple-plus</v-icon>Additional Member Details</h5>
-                                <p>You have selected <span class="font-weight-bold">{{this.additionalMembers}}</span> additional members. If you wish one of your members to remain as an unnamed guest, check the box.</p>
-                                <v-row align="center" class="mb-2">
-                                    <v-col cols="12" md="1" class="py-0 text-center">
-                                        <v-icon large color="#fc4f59">mdi-account</v-icon>
-                                        <v-subheader class="pa-0 font-weight-bold text-center justify-center">Primary Member</v-subheader>
-                                    </v-col>
-                                    <v-col cols="12" md="11" class="py-0">
-                                        <v-container>
-                                            <v-row align="center">
-                                                <v-col cols="12" md="2" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="primary.title"
-                                                        label="Title"
-                                                        disabled>
-                                                    </v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="primary.firstName"
-                                                        label="First Name"
-                                                        disabled
-                                                        required>
-                                                    </v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="primary.lastName"
-                                                        label="Last Name"
-                                                        disabled
-                                                        required>
-                                                    </v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-col>
-                                </v-row>
-                                <v-row align="center" v-for="guest in additionalMembers" :key="guest.id" class="mb-2">
-                                    <v-col cols="12" md="1" class="py-0 text-center">
-                                        <v-icon large color="#fc4f59">mdi-account</v-icon>
-                                        <v-subheader class="pa-0 font-weight-bold text-center justify-center">Adult {{guest}}</v-subheader>
-                                    </v-col>
-                                    <v-col cols="12" md="11" class="py-0">
-                                        <v-container>
-                                            <v-row align="center">
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-checkbox
-                                                        v-model="guest.unnamed"
-                                                        label="Unnamed Guest"
-                                                        color="#fc4f59"
-                                                    >
-                                                    </v-checkbox>
-                                                </v-col>
-                                                <v-col cols="12" md="2" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="guest.title"
-                                                        label="Title"
-                                                        :disabled="guest.unnamed">
-                                                    </v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="guest.firstName"
-                                                        label="First Name"
-                                                        :disabled="guest.unnamed"
-                                                        required>
-                                                    </v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="guest.lastName"
-                                                        label="Last Name"
-                                                        :disabled="guest.unnamed"
-                                                        required>
-                                                    </v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-col>
-                                </v-row>
-                                <v-row align="center" v-for="childGuest in selectChild" :key="childGuest.id" class="mb-2">
-                                    <v-col cols="12" md="1" class="py-0 text-center">
-                                        <v-icon large color="#fc4f59">mdi-account-child</v-icon>
-                                        <v-subheader class="pa-0 font-weight-bold text-center justify-center">Child {{childGuest}}</v-subheader>
-                                    </v-col>
-                                    <v-col cols="12" md="11" class="py-0">
-                                        <v-container>
-                                            <v-row align="center">
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-checkbox
-                                                        v-model="childGuest.unnamed"
-                                                        label="Unnamed Guest"
-                                                        color="#fc4f59"
-                                                    >
-                                                    </v-checkbox>
-                                                </v-col>
-                                                <v-col cols="12" md="2" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="childGuest.title"
-                                                        label="Title"
-                                                        :disabled="childGuest.unnamed">
-                                                    </v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="childGuest.firstName"
-                                                        label="First Name"
-                                                        :disabled="childGuest.unnamed"
-                                                        required>
-                                                    </v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="3" class="py-0">
-                                                    <v-text-field
-                                                        v-model.trim="childGuest.lastName"
-                                                        label="Last Name"
-                                                        :disabled="childGuest.unnamed"
-                                                        required>
-                                                    </v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                            <v-row align="center" class="pl-5">
-                                                <v-col cols="12" md="2" class="py-0">
-                                                    <v-subheader class="pa-0">Their DOB:</v-subheader>
-                                                </v-col>
-                                                <v-col cols="12" md="4" class="py-0">
-                                                    <v-row>
-                                                        <v-col cols="4" class="py-0">
-                                                            <v-select
-                                                                v-model.trim="childGuest.dobDay"
-                                                                label="Day"
-                                                                :disabled="childGuest.unnamed"
-                                                                required>
-                                                            </v-select>
-                                                        </v-col>
-                                                        <v-col cols="4" class="py-0">
-                                                            <v-select
-                                                                v-model.trim="childGuest.dobMonth"
-                                                                label="Month"
-                                                                :disabled="childGuest.unnamed"
-                                                                required>
-                                                            </v-select>
-                                                        </v-col>
-                                                        <v-col cols="4" class="py-0">
-                                                            <v-select
-                                                                v-model.trim="childGuest.dobYear"
-                                                                label="Year"
-                                                                :disabled="childGuest.unnamed"
-                                                                required>
-                                                            </v-select>
-                                                        </v-col>
-                                                    </v-row>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-col>
-                                </v-row>
-                            </div>
-                        </v-container>
-                        <v-btn color="grey" dark class="mr-5" large @click="previousStep()">Back</v-btn>
-                        <v-btn color="success" large @click="nextStep()">Confirm Details</v-btn>
-                    </v-form>
+                        </v-form>
+                        <v-form v-if="this.additionalMembers > 0">
+                            <h5 class="my-3 default-font font-weight-medium"><v-icon large left style="color: #fc4f59;">mdi-account-multiple-plus</v-icon>Additional Member Details</h5>
+                            <p>You have selected <span class="font-weight-bold">{{this.additionalMembers}}</span> additional members. If you wish one of your members to remain as an unnamed guest, check the box.</p>
+                            <v-row align="center" class="mb-5 ml-1" style="border-left: 5px solid #eee">
+                                <v-col cols="12" md="1" class="py-0 text-center">
+                                    <v-icon large color="#fc4f59">mdi-account</v-icon>
+                                    <v-subheader class="pa-0 font-weight-bold text-center justify-center">Primary Member</v-subheader>
+                                </v-col>
+                                <v-col cols="12" md="11" class="py-0">
+                                    <v-container>
+                                        <v-row align="center">
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="primary.title"
+                                                    label="Title"
+                                                    disabled>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="primary.firstName"
+                                                    label="First Name"
+                                                    disabled
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="primary.lastName"
+                                                    label="Last Name"
+                                                    disabled
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-col>
+                            </v-row>
+                            <v-row align="center" v-for="guest in additionalMembers" :key="guest.id" class="mb-5 ml-1" style="border-left: 5px solid #eee">
+                                <v-col cols="12" md="1" class="py-0 text-center">
+                                    <v-icon large color="#fc4f59">mdi-account</v-icon>
+                                    <v-subheader class="pa-0 font-weight-bold text-center justify-center">Adult {{guest}}</v-subheader>
+                                </v-col>
+                                <v-col cols="12" md="11" class="py-0">
+                                    <v-container>
+                                        <v-row align="center">
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-checkbox
+                                                    v-model="guest.unnamed"
+                                                    label="Unnamed Guest"
+                                                    color="#fc4f59"
+                                                >
+                                                </v-checkbox>
+                                            </v-col>
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="guest.title"
+                                                    label="Title"
+                                                    :disabled="guest.unnamed">
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="guest.firstName"
+                                                    label="First Name"
+                                                    :disabled="guest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="guest.lastName"
+                                                    label="Last Name"
+                                                    :disabled="guest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-col>
+                            </v-row>
+                            <v-row align="center" v-for="childGuest in selectChild" :key="childGuest.id" class="mb-5 ml-1" style="border-left: 5px solid #eee">
+                                <v-col cols="12" md="1" class="py-0 text-center">
+                                    <v-icon large color="#fc4f59">mdi-account-child</v-icon>
+                                    <v-subheader class="pa-0 font-weight-bold text-center justify-center">Child {{childGuest}}</v-subheader>
+                                </v-col>
+                                <v-col cols="12" md="11" class="py-0">
+                                    <v-container>
+                                        <v-row align="center">
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-checkbox
+                                                    v-model="childGuest.unnamed"
+                                                    label="Unnamed Guest"
+                                                    color="#fc4f59"
+                                                >
+                                                </v-checkbox>
+                                            </v-col>
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="childGuest.title"
+                                                    label="Title"
+                                                    :disabled="childGuest.unnamed">
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="childGuest.firstName"
+                                                    label="First Name"
+                                                    :disabled="childGuest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="3" class="py-0">
+                                                <v-text-field
+                                                    v-model.trim="childGuest.lastName"
+                                                    label="Last Name"
+                                                    :disabled="childGuest.unnamed"
+                                                    required>
+                                                </v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row align="center" class="pl-5">
+                                            <v-col cols="12" md="2" class="py-0">
+                                                <v-subheader class="pa-0">Their DOB:</v-subheader>
+                                            </v-col>
+                                            <v-col cols="12" md="4" class="py-0">
+                                                <v-row>
+                                                    <v-col cols="4" class="py-0">
+                                                        <v-select
+                                                            v-model.trim="childGuest.dobDay"
+                                                            label="Day"
+                                                            :disabled="childGuest.unnamed"
+                                                            required>
+                                                        </v-select>
+                                                    </v-col>
+                                                    <v-col cols="4" class="py-0">
+                                                        <v-select
+                                                            v-model.trim="childGuest.dobMonth"
+                                                            label="Month"
+                                                            :disabled="childGuest.unnamed"
+                                                            required>
+                                                        </v-select>
+                                                    </v-col>
+                                                    <v-col cols="4" class="py-0">
+                                                        <v-select
+                                                            v-model.trim="childGuest.dobYear"
+                                                            label="Year"
+                                                            :disabled="childGuest.unnamed"
+                                                            required>
+                                                        </v-select>
+                                                    </v-col>
+                                                </v-row>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-col>
+                            </v-row>
+                        </v-form>
+                    </v-container>
+                    <v-btn color="grey" dark class="mr-5" large @click="previousStep()">Back</v-btn>
+                    <v-btn color="success" large @click="nextStep()">Confirm Details</v-btn>
                 </v-stepper-content>
                 <v-stepper-content step="3">
                     <h1 class="mb-5">Confirm Details</h1>
@@ -475,7 +471,7 @@
                                 <v-subheader>Membership Package</v-subheader>
                             </v-col>
                             <v-col cols="12" md="9">
-                                <span class="font-weight-bold">Family Membership (2 adult, 2 children)</span>
+                                <span class="font-weight-bold">Family Membership (2 x adult, 2 x children)</span>
                             </v-col>
                         </v-row>
                         <v-divider class="my-5"></v-divider>
@@ -512,19 +508,19 @@
                             </v-col>
                         </v-row>
                         <v-divider v-if="isGift" class="my-5"></v-divider>
-                        <v-row no-gutters align="top">
+                        <v-row v-if="isGift" no-gutters align="top">
                             <v-col cols="12" md="3">
                                 <v-subheader>Gifter Contact Address</v-subheader>
                             </v-col>
                             <v-col cols="12" md="9">
-                                <div class="mb-1 d-block">{{gifter.addrLineOne}}</div>
-                                <div class="mb-1 d-block">{{gifter.addrLineTwo}}</div>
-                                <div class="mb-1 d-block">{{gifter.addrCity}}</div>
-                                <div class="mb-1 d-block">{{gifter.addrRegion}}</div>
-                                <div class="mb-1 d-block">{{gifter.addrPostcode}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{gifter.addrLineOne}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{gifter.addrLineTwo}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{gifter.addrCity}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{gifter.addrRegion}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{gifter.addrPostcode}}</div>
                             </v-col>
                         </v-row>
-                        <v-divider class="my-5"></v-divider>
+                        <v-divider v-if="isGift"  class="my-5"></v-divider>
                         <v-row no-gutters align="center">
                             <v-col cols="12" md="3">
                                 <v-subheader>Primary Contact Name</v-subheader>
@@ -563,11 +559,11 @@
                                 <v-subheader>Primary Contact Address</v-subheader>
                             </v-col>
                             <v-col cols="12" md="9">
-                                <div class="mb-1 d-block">{{primary.addrLineOne}}</div>
-                                <div class="mb-1 d-block">{{primary.addrLineTwo}}</div>
-                                <div class="mb-1 d-block">{{primary.addrCity}}</div>
-                                <div class="mb-1 d-block">{{primary.addrRegion}}</div>
-                                <div class="mb-1 d-block">{{primary.addrPostcode}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{primary.addrLineOne}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{primary.addrLineTwo}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{primary.addrCity}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{primary.addrRegion}}</div>
+                                <div class="font-weight-bold mb-1 d-block">{{primary.addrPostcode}}</div>
                             </v-col>
                         </v-row>
                         <v-divider v-if="additionalMembers > 0" class="my-5"></v-divider>
@@ -620,6 +616,24 @@
                                                 v-model="payment.billingDifferent"
                                                 label="Billing Address different from Member Address?"
                                                 ></v-checkbox>
+                                            <v-card v-if="payment.billingDifferent" class="pa-5 mb-5" color="grey lighten-4">
+                                                <v-text-field
+                                                    dense
+                                                    label="Address Line One"
+                                                    v-model="payment.addressLineOne"></v-text-field>
+                                                <v-text-field
+                                                    dense
+                                                    label="Address Line Two"
+                                                    v-model="payment.addressLineTwo"></v-text-field>
+                                                <v-text-field
+                                                    dense
+                                                    label="Town/City"
+                                                    v-model="payment.city"></v-text-field>
+                                                <v-text-field
+                                                    dense
+                                                    label="Postcode"
+                                                    v-model="payment.postcode"></v-text-field>
+                                            </v-card>
                                             <v-text-field
                                                 outlined
                                                 dense
